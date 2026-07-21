@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Theme 1: Luxe Doré (Default) */
             --bg-dark: #070709;
             --card-bg: rgba(18, 18, 26, 0.65);
             --card-bg-hover: rgba(28, 28, 40, 0.75);
@@ -23,11 +24,51 @@
             --text-main: #F3F4F6;
             --text-muted: #9CA3AF;
             --text-gold: #E5C158;
+            --orb-1: #8B5CF6;
+            --orb-2: #D4AF37;
             --glass-blur: blur(24px);
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 12px;
             --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Theme 2: Cyberpunk Néon */
+        [data-theme="cyberpunk"] {
+            --bg-dark: #05050a;
+            --card-bg: rgba(15, 10, 25, 0.7);
+            --card-bg-hover: rgba(25, 15, 40, 0.8);
+            --border-color: rgba(236, 72, 153, 0.3);
+            --border-glow: rgba(6, 182, 212, 0.6);
+            --accent-gold: #06B6D4;
+            --accent-gold-light: #A5F3FC;
+            --accent-gold-gradient: linear-gradient(135deg, #EC4899 0%, #3B82F6 50%, #06B6D4 100%);
+            --accent-purple: #EC4899;
+            --accent-purple-glow: rgba(236, 72, 153, 0.4);
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --text-gold: #38BDF8;
+            --orb-1: #EC4899;
+            --orb-2: #06B6D4;
+        }
+
+        /* Theme 3: Serein Émeraude */
+        [data-theme="serene"] {
+            --bg-dark: #040d08;
+            --card-bg: rgba(10, 25, 18, 0.65);
+            --card-bg-hover: rgba(18, 40, 28, 0.75);
+            --border-color: rgba(16, 185, 129, 0.25);
+            --border-glow: rgba(52, 211, 153, 0.5);
+            --accent-gold: #10B981;
+            --accent-gold-light: #A7F3D0;
+            --accent-gold-gradient: linear-gradient(135deg, #059669 0%, #34D399 50%, #6EE7B7 100%);
+            --accent-purple: #059669;
+            --accent-purple-glow: rgba(16, 185, 129, 0.35);
+            --text-main: #F0FDF4;
+            --text-muted: #86EFAC;
+            --text-gold: #34D399;
+            --orb-1: #059669;
+            --orb-2: #34D399;
         }
 
         * {
@@ -47,11 +88,12 @@
             align-items: flex-start;
             padding: 20px 10px 100px 10px;
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 15% 15%, var(--accent-purple-glow) 0%, transparent 40%),
                 radial-gradient(circle at 85% 60%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 50% 90%, var(--accent-purple-glow) 0%, transparent 50%);
             background-attachment: fixed;
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         .app-container {
@@ -83,12 +125,13 @@
             filter: blur(80px);
             opacity: 0.4;
             animation: float 12s infinite alternate ease-in-out;
+            transition: background 0.5s ease;
         }
 
         .glow-orb-1 {
             width: 250px;
             height: 250px;
-            background: var(--accent-purple);
+            background: var(--orb-1);
             top: 5%;
             left: -10%;
         }
@@ -96,7 +139,7 @@
         .glow-orb-2 {
             width: 200px;
             height: 200px;
-            background: var(--accent-gold);
+            background: var(--orb-2);
             top: 45%;
             right: -10%;
             animation-delay: -6s;
@@ -135,7 +178,7 @@
 
         .glass-card:hover {
             border-color: var(--border-glow);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.12);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--border-glow);
         }
 
         /* HEADER */
@@ -199,6 +242,53 @@
             color: white;
         }
 
+        /* AMBIANCE / THEME SELECTOR */
+        .ambiance-selector-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            gap: 10px;
+        }
+
+        .ambiance-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .ambiance-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ambiance-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .ambiance-btn.active, .ambiance-btn:hover {
+            background: var(--accent-gold-gradient);
+            color: #070709;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
         /* SEARCH BAR */
         .search-box {
             display: flex;
@@ -241,7 +331,7 @@
         /* HERO BANNER */
         .hero-banner {
             background: linear-gradient(135deg, rgba(28, 20, 50, 0.8) 0%, rgba(15, 15, 22, 0.9) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
         }
@@ -253,7 +343,7 @@
             padding: 6px 14px;
             border-radius: 30px;
             background: rgba(212, 175, 55, 0.12);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid var(--border-color);
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 1.5px;
@@ -287,7 +377,7 @@
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             transition: var(--transition-smooth);
             display: inline-flex;
             align-items: center;
@@ -297,7 +387,7 @@
 
         .action-btn-gold:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.45);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
         }
 
         /* QUICK ACTIONS */
@@ -343,7 +433,7 @@
 
         .quick-action-item:hover {
             background: rgba(212, 175, 55, 0.08);
-            border-color: rgba(212, 175, 55, 0.3);
+            border-color: var(--border-color);
             transform: translateY(-3px);
         }
 
@@ -373,7 +463,7 @@
         /* CREDIT CARD WIDGET */
         .credit-card {
             background: linear-gradient(135deg, #181528 0%, #090810 100%);
-            border: 1px solid rgba(212, 175, 55, 0.35);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 24px;
             position: relative;
@@ -393,7 +483,7 @@
             right: -100px;
             width: 250px;
             height: 250px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--accent-purple-glow) 0%, transparent 70%);
             border-radius: 50%;
         }
 
@@ -530,7 +620,7 @@
 
         .portfolio-item:hover {
             background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(212, 175, 55, 0.2);
+            border-color: var(--border-color);
         }
 
         .portfolio-info {
@@ -544,7 +634,7 @@
             height: 40px;
             border-radius: 10px;
             background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -599,7 +689,7 @@
             align-items: center;
             gap: 14px;
             background: rgba(20, 20, 30, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.25);
+            border: 1px solid var(--border-color);
             padding: 14px;
         }
 
@@ -607,7 +697,7 @@
             width: 50px;
             height: 50px;
             border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, #4c1d95, #8b5cf6);
+            background: var(--accent-gold-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -670,8 +760,8 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: rgba(139, 92, 246, 0.15);
-            color: var(--accent-purple);
+            background: var(--accent-purple-glow);
+            color: var(--accent-gold);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -723,7 +813,7 @@
         }
 
         .toggle-switch.active {
-            background: var(--accent-purple);
+            background: var(--accent-gold);
         }
 
         .toggle-switch::after {
@@ -753,7 +843,7 @@
             background: rgba(12, 12, 18, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border: 1px solid var(--border-color);
             border-radius: 40px;
             padding: 10px 20px;
             display: flex;
@@ -828,7 +918,7 @@
             padding: 3px 8px;
             border-radius: 12px;
             margin-top: 4px;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border: 1px solid var(--border-color);
         }
     </style>
 </head>
@@ -852,6 +942,22 @@
                 <div class="verified-badge-mini">✓</div>
             </div>
         </header>
+
+        <!-- SÉLECTEUR D'AMBIANCE (3 THÈMES) -->
+        <div class="ambiance-selector-container">
+            <span class="ambiance-label">Ambiance</span>
+            <div class="ambiance-options">
+                <button class="ambiance-btn active" data-theme="gold" onclick="switchTheme('gold')">
+                    ✦ Gold
+                </button>
+                <button class="ambiance-btn" data-theme="cyberpunk" onclick="switchTheme('cyberpunk')">
+                    ⚡ Neon
+                </button>
+                <button class="ambiance-btn" data-theme="serene" onclick="switchTheme('serene')">
+                    🌿 Serein
+                </button>
+            </div>
+        </div>
 
         <!-- SEARCH BAR -->
         <div class="search-box">
@@ -1114,7 +1220,7 @@
         </section>
 
         <!-- UPGRADE TO ELITE BANNER -->
-        <section class="glass-card" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%); border-color: rgba(212, 175, 55, 0.4); text-align: center; padding: 30px 20px;">
+        <section class="glass-card" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%); border-color: var(--border-color); text-align: center; padding: 30px 20px;">
             <span class="badge-tag">OFFRE LIMITÉE</span>
             <h2 class="font-serif gold-text" style="font-size: 28px; margin: 10px 0;">Passer à l'Édition Elite</h2>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5;">
@@ -1148,6 +1254,35 @@
     </nav>
 
     <script>
+        // Gestion du sélecteur d'ambiances
+        function switchTheme(themeName) {
+            triggerHaptic();
+            const root = document.documentElement;
+            const buttons = document.querySelectorAll('.ambiance-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-theme') === themeName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (themeName === 'gold') {
+                root.removeAttribute('data-theme');
+            } else {
+                root.setAttribute('data-theme', themeName);
+            }
+
+            localStorage.setItem('premium-theme', themeName);
+        }
+
+        // Restauration du thème sauvegardé
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('premium-theme') || 'gold';
+            switchTheme(savedTheme);
+        });
+
         // Retours haptiques (Vibration tactile douce sur mobile)
         function triggerHaptic() {
             if ("vibrate" in navigator) {
