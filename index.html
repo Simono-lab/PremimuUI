@@ -1,1002 +1,1185 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PREMIUM - Luxury Experience</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070709;
+            --card-bg: rgba(18, 18, 26, 0.65);
+            --card-bg-hover: rgba(28, 28, 40, 0.75);
+            --border-color: rgba(212, 175, 55, 0.18);
+            --border-glow: rgba(212, 175, 55, 0.4);
+            --accent-gold: #D4AF37;
+            --accent-gold-light: #F3E5AB;
+            --accent-gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+            --accent-purple: #8B5CF6;
+            --accent-purple-glow: rgba(139, 92, 246, 0.35);
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --text-gold: #E5C158;
+            --glass-blur: blur(24px);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-<meta charset="UTF-8">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 10px 100px 10px;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 60%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
 
-<title>Premium UI Demo</title>
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+        /* Ambient subtle animation background particle effect */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 12s infinite alternate ease-in-out;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+        .glow-orb-1 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-purple);
+            top: 5%;
+            left: -10%;
+        }
 
-<link rel="stylesheet" href="css/variables.css">
-<link rel="stylesheet" href="css/themes.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/style.css">
+        .glow-orb-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-gold);
+            top: 45%;
+            right: -10%;
+            animation-delay: -6s;
+        }
 
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.1); }
+        }
+
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .gold-text {
+            background: var(--accent-gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Glassmorphic Base Card */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: var(--transition-smooth);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.12);
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            z-index: 2;
+        }
+
+        .brand-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .profile-avatar-wrapper {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 2px;
+            background: var(--accent-gold-gradient);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+
+        .profile-avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .verified-badge-mini {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #10B981;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: white;
+        }
+
+        /* SEARCH BAR */
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(18, 18, 26, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            backdrop-filter: blur(12px);
+            transition: var(--transition-smooth);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-size: 14px;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-box svg {
+            stroke: var(--text-muted);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* HERO BANNER */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(28, 20, 50, 0.8) 0%, rgba(15, 15, 22, 0.9) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--accent-gold-light);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .hero-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .action-btn-gold {
+            background: var(--accent-gold-gradient);
+            color: #070709;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px 26px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.45);
+        }
+
+        /* QUICK ACTIONS */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .section-header .see-all {
+            font-size: 12px;
+            color: var(--accent-gold);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-md);
+            padding: 16px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .quick-action-item:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .quick-action-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .quick-action-item:hover .quick-action-icon {
+            background: var(--accent-gold-gradient);
+            color: #070709;
+        }
+
+        .quick-action-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* CREDIT CARD WIDGET */
+        .credit-card {
+            background: linear-gradient(135deg, #181528 0%, #090810 100%);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            aspect-ratio: 1.58 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.1s ease-out;
+        }
+
+        .credit-card::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .card-type {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .card-chip {
+            width: 38px;
+            height: 28px;
+            background: linear-gradient(135deg, #e0aa3e 0%, #f9f5b0 50%, #b8860b 100%);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-number {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+            letter-spacing: 3px;
+            z-index: 2;
+            word-spacing: 6px;
+            margin: 15px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        .card-holder-label {
+            font-size: 9px;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .card-holder-name {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* DASHBOARD METRICS GRID */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .metric-val {
+            font-size: 22px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metric-change {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10B981;
+        }
+
+        /* ANALYTICS CHART SIMULATION */
+        .chart-container {
+            width: 100%;
+            height: 120px;
+            position: relative;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .chart-line {
+            fill: none;
+            stroke: url(#goldGradient);
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        .chart-area {
+            fill: url(#chartAreaGradient);
+        }
+
+        /* PORTFOLIO LIST */
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .portfolio-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition-smooth);
+        }
+
+        .portfolio-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .portfolio-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .portfolio-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 18px;
+        }
+
+        .portfolio-title {
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+
+        .portfolio-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .portfolio-value {
+            text-align: right;
+            font-weight: 600;
+            font-size: 13.5px;
+        }
+
+        /* FEATURED / AI WIDGET */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .featured-card {
+            background: linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .featured-card h3 {
+            font-size: 14px;
+            margin: 8px 0 6px 0;
+        }
+
+        .featured-card p {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* MUSIC / AMBIANCE PLAYER */
+        .player-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(20, 20, 30, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            padding: 14px;
+        }
+
+        .player-cover {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, #4c1d95, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .player-info {
+            flex-grow: 1;
+        }
+
+        .player-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .player-artist {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .control-btn-play {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--accent-gold-gradient);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* NOTIFICATIONS SECTION */
+        .notif-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .notif-item:last-child {
+            border-bottom: none;
+        }
+
+        .notif-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notif-content h4 {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .notif-content p {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* SETTINGS TOGGLES */
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-title {
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+
+        .setting-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--accent-purple);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+
+        /* BOTTOM NAV BAR */
+        .bottom-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 30px);
+            max-width: 450px;
+            background: rgba(12, 12, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 40px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-item.active svg, .nav-item:hover svg {
+            stroke: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        /* USER PROFILE CARD */
+        .user-profile-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-gold);
+            object-fit: cover;
+        }
+
+        .user-profile-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .user-profile-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .verified-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.12);
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-top: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+    </style>
 </head>
+<body>
 
-<body class="theme-dark">
+    <div class="ambient-glow">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+    </div>
 
-<div class="app">
+    <div class="app-container">
 
-    <!-- HEADER -->
-
-    <header class="header fade-in">
-
-        <div>
-
-            <h1 class="logo gold-text">
-                PREMIUM
-            </h1>
-
-            <div class="subtitle">
-                Luxury Experience
+        <!-- HEADER -->
+        <header>
+            <div>
+                <h1 class="brand-title gold-text">PREMIUM</h1>
+                <div class="brand-subtitle">Luxury Experience</div>
             </div>
+            <div class="profile-avatar-wrapper" onclick="triggerHaptic()">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Profile">
+                <div class="verified-badge-mini">✓</div>
+            </div>
+        </header>
 
+        <!-- SEARCH BAR -->
+        <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+            <input type="text" placeholder="Rechercher un actif, une fonction...">
         </div>
 
-        <div class="profile hover-scale">
-
-            <img
-            src="https://picsum.photos/120"
-            alt="Profile">
-
-        </div>
-
-    </header>
-
-
-    <!-- MAIN -->
-
-    <main>
-
-        <!-- HERO -->
-
-        <section class="hero-card breathing">
-
-            <div class="orb-gold"></div>
-
-            <div class="orb-purple"></div>
-
-            <span class="premium-badge">
-                ✦ PREMIUM
-            </span>
-
-            <h2>
-                Welcome Back
-            </h2>
-
-            <p>
-
-                Beautiful glassmorphism,
-                premium animations,
-                golden reflections
-                and purple neon.
-
+        <!-- HERO WELCOME BANNER -->
+        <section class="glass-card hero-banner">
+            <span class="badge-tag">✦ Privilèges Exclusifs</span>
+            <h2 class="hero-title">Welcome Back</h2>
+            <p class="hero-desc">
+                Expérience haut de gamme optimisée : verre sculpté, accents dorés, réactivité haptique et intelligence artificielle dédiée.
             </p>
-
-            <div class="actions">
-
-                <button
-                class="btn-premium">
-
-                    Explore
-
-                </button>
-
-                <button
-                class="btn-premium btn-purple">
-
-                    Upgrade
-
-                </button>
-
-            </div>
-
+            <button class="action-btn-gold" onclick="triggerHaptic()">
+                Explorer l'Espace Elite
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
         </section>
-
 
         <!-- QUICK ACTIONS -->
-
         <section>
-
-            <div class="section-title">
-
-                <h2>
-                    Quick Actions
-                </h2>
-
-                <span>
-                    View all
-                </span>
-
+            <div class="section-header">
+                <h2>Accès Rapide</h2>
+                <span class="see-all">Voir tout</span>
             </div>
-
-            <div class="quick-actions">
-
-                <div class="action">
-
-                    <div class="action-icon glow-purple">
-
-                        🏠
-
+            <div class="quick-actions-grid">
+                <div class="quick-action-item" onclick="triggerHaptic()">
+                    <div class="quick-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                     </div>
-
-                    <span>
-
-                        Home
-
-                    </span>
-
+                    <span class="quick-action-label">Accueil</span>
                 </div>
-
-                <div class="action">
-
-                    <div class="action-icon glow-gold">
-
-                        💳
-
+                <div class="quick-action-item" onclick="triggerHaptic()">
+                    <div class="quick-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                     </div>
-
-                    <span>
-
-                        Wallet
-
-                    </span>
-
+                    <span class="quick-action-label">Portefeuille</span>
                 </div>
-
-                <div class="action">
-
-                    <div class="action-icon">
-
-                        📈
-
+                <div class="quick-action-item" onclick="triggerHaptic()">
+                    <div class="quick-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                     </div>
-
-                    <span>
-
-                        Analytics
-
-                    </span>
-
+                    <span class="quick-action-label">Analyses</span>
                 </div>
-
-                <div class="action">
-
-                    <div class="action-icon">
-
-                        ⚙️
-
+                <div class="quick-action-item" onclick="triggerHaptic()">
+                    <div class="quick-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a16.5 16.5 0 0 0 .33-1.82l.06-.68a1.5 1.5 0 0 0-.8-1.47l-1.3-.75a1.5 1.5 0 0 1-.75-1.3v-1.5a1.5 1.5 0 0 1 .75-1.3l1.3-.75a1.5 1.5 0 0 0 .8-1.47l-.06-.68a16.5 16.5 0 0 0-.33-1.82 1.5 1.5 0 0 0-1.43-1.12l-1.5.08a1.5 1.5 0 0 1-1.39-.93l-.62-1.37a1.5 1.5 0 0 0-1.35-.91h-.68a16.5 16.5 0 0 0-1.82.33 1.5 1.5 0 0 0-1.12 1.43l.08 1.5a1.5 1.5 0 0 1-.93 1.39l-1.37.62a1.5 1.5 0 0 0-.91 1.35v.68c0 .62.08 1.23.23 1.82a1.5 1.5 0 0 0 1.22 1.12l1.5-.08a1.5 1.5 0 0 1 1.39.93l.62 1.37a1.5 1.5 0 0 0 1.35.91h.68a16.5 16.5 0 0 0 1.82-.33 1.5 1.5 0 0 0 1.12-1.43l-.08-1.5a1.5 1.5 0 0 1 .93-1.39l1.37-.62a1.5 1.5 0 0 0 .91-1.35z"/></svg>
                     </div>
-
-                    <span>
-
-                        Settings
-
-                    </span>
-
+                    <span class="quick-action-label">Réglages</span>
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- STATS -->
-
-        <section>
-
-            <div class="section-title">
-
-                <h2>
-
-                    Dashboard
-
-                </h2>
-
+        <!-- LUXURY CREDIT CARD -->
+        <section class="credit-card" id="creditCard">
+            <div class="card-top">
+                <div class="card-type gold-text">✦ PREMIUM BLACK</div>
+                <div class="card-chip"></div>
             </div>
-
-            <div class="stats-grid">
-
-                <div class="stat-card hover-lift">
-
-                    <div class="label">
-
-                        Revenue
-
-                    </div>
-
-                    <div class="stat-value">
-
-                        €24.5K
-
-                    </div>
-
-                </div>
-
-                <div class="stat-card hover-lift">
-
-                    <div class="label">
-
-                        Users
-
-                    </div>
-
-                    <div class="stat-value">
-
-                        8 920
-
-                    </div>
-
-                </div>
-
-                <div class="stat-card hover-lift">
-
-                    <div class="label">
-
-                        Rating
-
-                    </div>
-
-                    <div class="stat-value">
-
-                        4.98
-
-                    </div>
-
-                </div>
-
-                <div class="stat-card hover-lift">
-
-                    <div class="label">
-
-                        Growth
-
-                    </div>
-
-                    <div class="stat-value">
-
-                        +18%
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SCORE -->
-
-        <section class="panel">
-
-            <div class="section-title">
-
-                <h2>
-
-                    Performance
-
-                </h2>
-
-            </div>
-
-            <div class="score">
-
-                <div class="score-inner">
-
-                    92%
-
-                </div>
-
-            </div>
-
-        </section>
-                </section>
-
-        <!-- GRAPH -->
-
-        <section class="panel slide-up">
-
-            <div class="section-title">
-
-                <h2>Analytics</h2>
-
-                <span>30 derniers jours</span>
-
-            </div>
-
-            <div class="chart-card">
-
-                <div class="chart-grid"></div>
-
-                <div class="chart-line"></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- PREMIUM BANK CARD -->
-
-        <section class="bank-card hover-lift">
-
-            <div class="floating-widget">
-
-                ● Premium
-
-            </div>
-
-            <div class="card-chip"></div>
-
-            <div class="card-number">
-
-                •••• •••• •••• 2856
-
-            </div>
-
-            <div class="card-footer">
-
+            <div class="card-number">•••• •••• •••• 2856</div>
+            <div class="card-bottom">
                 <div>
-
-                    <div class="small">
-
-                        Card Holder
-
-                    </div>
-
-                    <strong>
-
-                        JOHN DOE
-
-                    </strong>
-
+                    <div class="card-holder-label">Titulaire</div>
+                    <div class="card-holder-name">JOHN DOE</div>
                 </div>
-
                 <div>
-
-                    <div class="small">
-
-                        Expires
-
-                    </div>
-
-                    <strong>
-
-                        08/30
-
-                    </strong>
-
+                    <div class="card-holder-label">Expire</div>
+                    <div class="card-holder-name">08/30</div>
                 </div>
-
             </div>
-
         </section>
 
+        <!-- DASHBOARD METRICS -->
+        <section class="glass-card">
+            <div class="section-header">
+                <h2>Tableau de Bord</h2>
+                <span class="badge-tag" style="margin-bottom:0; padding:3px 10px; font-size:9px;">Temps Réel</span>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Revenus</span>
+                    <span class="metric-val">€24,500</span>
+                    <span class="metric-change">↑ +14.2%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Membres VIP</span>
+                    <span class="metric-val">8,920</span>
+                    <span class="metric-change">↑ +8.5%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Score Elite</span>
+                    <span class="metric-val">4.98</span>
+                    <span class="metric-change">★ Excellent</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Croissance</span>
+                    <span class="metric-val">+18%</span>
+                    <span class="metric-change">↑ Ce mois</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS WITH GRAPH -->
+        <section class="glass-card">
+            <div class="section-header">
+                <h2>Performance Analytics</h2>
+                <span style="font-size: 11px; color: var(--text-muted);">30 derniers jours</span>
+            </div>
+            <div class="chart-container">
+                <svg class="chart-svg" viewBox="0 0 300 100">
+                    <defs>
+                        <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#8B5CF6"/>
+                            <stop offset="50%" stop-color="#D4AF37"/>
+                            <stop offset="100%" stop-color="#FCF6BA"/>
+                        </linearGradient>
+                        <linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(212, 175, 55, 0.25)"/>
+                            <stop offset="100%" stop-color="rgba(212, 175, 55, 0)"/>
+                        </linearGradient>
+                    </defs>
+                    <path class="chart-area" d="M0,80 Q 50,20 100,60 T 200,30 T 300,10 L 300,100 L 0,100 Z" />
+                    <path class="chart-line" d="M0,80 Q 50,20 100,60 T 200,30 T 300,10" />
+                </svg>
+            </div>
+        </section>
 
         <!-- PORTFOLIO -->
-
-        <section class="panel">
-
-            <div class="section-title">
-
-                <h2>
-
-                    Portfolio
-
-                </h2>
-
-                <span>
-
-                    Today
-
-                </span>
-
+        <section class="glass-card">
+            <div class="section-header">
+                <h2>Portfolio d'Actifs</h2>
+                <span class="see-all">Aujourd'hui</span>
             </div>
-
-            <div class="activity">
-
-                <div class="activity-left">
-
-                    <div class="activity-icon">
-
-                        💎
-
-                    </div>
-
-                    <div>
-
-                        <div class="activity-title">
-
-                            Gold Assets
-
+            <div class="portfolio-list">
+                <div class="portfolio-item">
+                    <div class="portfolio-info">
+                        <div class="portfolio-icon">💎</div>
+                        <div>
+                            <div class="portfolio-title">Gold Assets</div>
+                            <div class="portfolio-subtitle">Mis à jour à l'instant</div>
                         </div>
-
-                        <div class="activity-date">
-
-                            Updated now
-
+                    </div>
+                    <div class="portfolio-value">
+                        <div style="color:#10B981;">+12.4%</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">€148,200</div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-info">
+                        <div class="portfolio-icon">🚀</div>
+                        <div>
+                            <div class="portfolio-title">Investissements Tech</div>
+                            <div class="portfolio-subtitle">Dernière heure</div>
                         </div>
-
                     </div>
-
+                    <div class="portfolio-value">
+                        <div style="color:#10B981;">+4.8%</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">€82,400</div>
+                    </div>
                 </div>
-
-                <div class="activity-value">
-
-                    +12.4%
-
-                </div>
-
             </div>
-
-            <div class="activity">
-
-                <div class="activity-left">
-
-                    <div class="activity-icon">
-
-                        🚀
-
-                    </div>
-
-                    <div>
-
-                        <div class="activity-title">
-
-                            Investments
-
-                        </div>
-
-                        <div class="activity-date">
-
-                            Last hour
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="activity-value">
-
-                    +4.8%
-
-                </div>
-
-            </div>
-
-            <div class="activity">
-
-                <div class="activity-left">
-
-                    <div class="activity-icon">
-
-                        📊
-
-                    </div>
-
-                    <div>
-
-                        <div class="activity-title">
-
-                            Performance
-
-                        </div>
-
-                        <div class="activity-date">
-
-                            Weekly
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="activity-value">
-
-                    +18%
-
-                </div>
-
-            </div>
-
         </section>
 
-
-        <!-- FEATURED CARDS -->
-
-        <section>
-
-            <div class="section-title">
-
-                <h2>
-
-                    Featured
-
-                </h2>
-
+        <!-- FEATURED AI ASSISTANT & CARDS -->
+        <section class="featured-grid">
+            <div class="featured-card">
+                <span class="badge-tag" style="font-size: 8px; padding: 2px 6px;">GOLD ACCESS</span>
+                <h3>Contenu Exclusif</h3>
+                <p>Débloquez le coffre-fort d'analyses stratégiques et de conseils privés.</p>
             </div>
-
-            <div class="scroll-x">
-
-                <div class="card hover-lift" style="min-width:260px;">
-
-                    <div class="premium-badge">
-
-                        GOLD
-
-                    </div>
-
-                    <h3 style="margin-top:18px;">
-
-                        Exclusive Access
-
-                    </h3>
-
-                    <p class="subtitle">
-
-                        Unlock premium content,
-                        AI features and unlimited cloud.
-
-                    </p>
-
-                </div>
-
-                <div class="card hover-lift" style="min-width:260px;">
-
-                    <div class="premium-badge">
-
-                        NEW
-
-                    </div>
-
-                    <h3 style="margin-top:18px;">
-
-                        AI Assistant
-
-                    </h3>
-
-                    <p class="subtitle">
-
-                        Smart recommendations
-                        and beautiful interactions.
-
-                    </p>
-
-                </div>
-
+            <div class="featured-card" style="border-color: rgba(139, 92, 246, 0.3);">
+                <span class="badge-tag" style="font-size: 8px; padding: 2px 6px; background: rgba(139, 92, 246, 0.15); color: #C4B5FD; border-color: rgba(139, 92, 246, 0.3);">IA ASSISTANT</span>
+                <h3>Recommandations</h3>
+                <p>Analyse prédictive automatisée et alertes de conciergerie 24/7.</p>
             </div>
-
-        </section>
-                <!-- ==========================
-             MUSIC PLAYER
-        =========================== -->
-
-        <section class="music-player panel">
-
-            <div class="music-cover floating"></div>
-
-            <div class="music-title">
-
-                Midnight Dreams
-
-            </div>
-
-            <div class="music-artist">
-
-                Premium Studio
-
-            </div>
-
-            <div class="slider">
-
-                <span id="progress"></span>
-
-            </div>
-
-            <div class="controls">
-
-                <div class="control">
-
-                    ⏮
-
-                </div>
-
-                <div class="control play" id="playButton">
-
-                    ▶
-
-                </div>
-
-                <div class="control">
-
-                    ⏭
-
-                </div>
-
-            </div>
-
         </section>
 
-
-        <!-- ==========================
-             SEARCH
-        =========================== -->
-
-        <section>
-
-            <div class="search-bar">
-
-                🔍
-
-                <input
-                    type="text"
-                    placeholder="Search anything...">
-
+        <!-- MUSIC & AMBIANCE PLAYER -->
+        <section class="glass-card player-card">
+            <div class="player-cover">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
             </div>
-
-        </section>
-
-
-        <!-- ==========================
-             PROFILE
-        =========================== -->
-
-        <section class="profile-card">
-
-            <img
-                src="https://picsum.photos/140"
-                alt="User">
-
-            <div>
-
-                <div class="profile-name">
-
-                    John Doe
-
-                </div>
-
-                <div class="profile-role">
-
-                    Premium Member
-
-                </div>
-
-                <div
-                    class="premium-badge"
-                    style="margin-top:12px;">
-
-                    ✦ VERIFIED
-
-                </div>
-
+            <div class="player-info">
+                <div class="player-title">Midnight Dreams</div>
+                <div class="player-artist">Premium Studio • Relax Ambiance</div>
             </div>
-
-        </section>
-
-
-        <!-- ==========================
-             NOTIFICATIONS
-        =========================== -->
-
-        <section class="column">
-
-            <div class="notification">
-
-                <div class="notification-icon">
-
-                    🔔
-
-                </div>
-
-                <div>
-
-                    <h4>
-
-                        Payment received
-
-                    </h4>
-
-                    <p>
-
-                        €1,280 has been credited
-                        to your account.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="notification">
-
-                <div class="notification-icon">
-
-                    🚀
-
-                </div>
-
-                <div>
-
-                    <h4>
-
-                        New Premium Feature
-
-                    </h4>
-
-                    <p>
-
-                        AI dashboard has been
-                        activated.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ==========================
-             SETTINGS
-        =========================== -->
-
-        <section class="panel">
-
-            <div class="row">
-
-                <div>
-
-                    <strong>
-
-                        Dark Theme
-
-                    </strong>
-
-                    <div class="small">
-
-                        Luxury appearance
-
-                    </div>
-
-                </div>
-
-                <div
-                    class="toggle active"
-                    id="themeToggle">
-
-                </div>
-
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="row">
-
-                <div>
-
-                    <strong>
-
-                        Notifications
-
-                    </strong>
-
-                    <div class="small">
-
-                        Push messages
-
-                    </div>
-
-                </div>
-
-                <div class="toggle active"></div>
-
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="row">
-
-                <div>
-
-                    <strong>
-
-                        Biometrics
-
-                    </strong>
-
-                    <div class="small">
-
-                        Face ID
-
-                    </div>
-
-                </div>
-
-                <div class="toggle"></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ==========================
-             PREMIUM OFFER
-        =========================== -->
-
-        <section class="hero-card glow-purple">
-
-            <span class="premium-badge">
-
-                LIMITED OFFER
-
-            </span>
-
-            <h2 style="margin-top:20px;">
-
-                Upgrade to Elite
-
-            </h2>
-
-            <p>
-
-                Unlock exclusive themes,
-                AI features,
-                cloud sync,
-                premium widgets,
-                advanced analytics
-                and luxury animations.
-
-            </p>
-
-            <button
-                class="btn-premium"
-                style="margin-top:24px;">
-
-                Become Elite
-
-            </button>
-
-        </section>
-                <!-- ==========================================
-             FLOATING ACTION BUTTON
-        =========================================== -->
-
-        <div class="fab pulse" id="fabButton">
-
-            ✦
-
-        </div>
-
-
-        <!-- ==========================================
-             BOTTOM NAVIGATION
-        =========================================== -->
-
-        <nav class="bottom-nav">
-
-            <div class="item active">
-
-                <div class="nav-icon">🏠</div>
-
-                <span>Home</span>
-
-            </div>
-
-            <div class="item">
-
-                <div class="nav-icon">📊</div>
-
-                <span>Stats</span>
-
-            </div>
-
-            <div class="item">
-
-                <div class="nav-icon">💎</div>
-
-                <span>Premium</span>
-
-            </div>
-
-            <div class="item">
-
-                <div class="nav-icon">👤</div>
-
-                <span>Profile</span>
-
-            </div>
-
-        </nav>
-
-
-        <!-- ==========================================
-             MODAL
-        =========================================== -->
-
-        <div class="modal" id="premiumModal">
-
-            <div class="modal-content">
-
-                <h2 class="gold-text">
-
-                    Premium Experience
-
-                </h2>
-
-                <p
-                    class="subtitle"
-                    style="margin:20px 0">
-
-                    This demonstration reproduces a luxury
-                    interface with glassmorphism,
-                    golden reflections,
-                    purple neon,
-                    smooth animations
-                    and premium interactions.
-
-                </p>
-
-                <button
-                    class="btn-premium"
-                    id="closeModal">
-
-                    Continue
-
+            <div class="player-controls">
+                <button class="control-btn" onclick="triggerHaptic()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                 </button>
-
+                <button class="control-btn control-btn-play" id="playBtn" onclick="togglePlay()">
+                    <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button class="control-btn" onclick="triggerHaptic()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 18h2V6h-2zm-11.5-6L13 6v12z"/></svg>
+                </button>
             </div>
+        </section>
 
-        </div>
+        <!-- USER PROFILE SECTION -->
+        <section class="glass-card">
+            <div class="user-profile-card">
+                <img class="user-profile-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="John Doe">
+                <div class="user-profile-info">
+                    <h3>John Doe</h3>
+                    <p>john.doe@luxury-executive.com</p>
+                    <div class="verified-pill">✦ MEMBRE VÉRIFIÉ ELITE</div>
+                </div>
+            </div>
+        </section>
 
+        <!-- NOTIFICATIONS -->
+        <section class="glass-card">
+            <div class="section-header">
+                <h2>Notifications Privées</h2>
+            </div>
+            <div class="notif-item">
+                <div class="notif-icon">💳</div>
+                <div class="notif-content">
+                    <h4>Paiement Reçu</h4>
+                    <p>Un virement de €1,280.00 a été crédité avec succès.</p>
+                </div>
+            </div>
+            <div class="notif-item">
+                <div class="notif-icon">🚀</div>
+                <div class="notif-content">
+                    <h4>Nouvelle Fonctionnalité</h4>
+                    <p>Le module de conciergerie IA Elite est désormais actif.</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- ==========================================
-             TOAST
-        =========================================== -->
+        <!-- SETTINGS TOGGLES -->
+        <section class="glass-card">
+            <div class="section-header">
+                <h2>Préférences</h2>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <div class="setting-title">Thème Sombre Luxe</div>
+                    <div class="setting-sub">Apparence obscurcie optimisée OLED</div>
+                </div>
+                <div class="toggle-switch active" onclick="this.classList.toggle('active'); triggerHaptic();"></div>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <div class="setting-title">Notifications VIP</div>
+                    <div class="setting-sub">Alertes instantanées en temps réel</div>
+                </div>
+                <div class="toggle-switch active" onclick="this.classList.toggle('active'); triggerHaptic();"></div>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <div class="setting-title">Biométrie & Face ID</div>
+                    <div class="setting-sub">Sécurité renforcée au déverrouillage</div>
+                </div>
+                <div class="toggle-switch active" onclick="this.classList.toggle('active'); triggerHaptic();"></div>
+            </div>
+        </section>
 
-        <div
-            class="toast"
-            id="toast"
-            style="display:none;">
+        <!-- UPGRADE TO ELITE BANNER -->
+        <section class="glass-card" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%); border-color: rgba(212, 175, 55, 0.4); text-align: center; padding: 30px 20px;">
+            <span class="badge-tag">OFFRE LIMITÉE</span>
+            <h2 class="font-serif gold-text" style="font-size: 28px; margin: 10px 0;">Passer à l'Édition Elite</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5;">
+                Débloquez l'accès illimité aux conseils financiers personnalisés par IA, un gestionnaire de compte dédié et zéro frais de transaction.
+            </p>
+            <button class="action-btn-gold" style="width: 100%;" onclick="triggerHaptic()">
+                Rejoindre le Club Privé
+            </button>
+        </section>
 
-            Welcome back 👋
+    </div>
 
-        </div>
+    <!-- BOTTOM NAVIGATION BAR -->
+    <nav class="bottom-nav">
+        <a class="nav-item active" onclick="triggerHaptic()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Accueil</span>
+        </a>
+        <a class="nav-item" onclick="triggerHaptic()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Stats</span>
+        </a>
+        <a class="nav-item" onclick="triggerHaptic()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Premium</span>
+        </a>
+        <a class="nav-item" onclick="triggerHaptic()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profil</span>
+        </a>
+    </nav>
 
-    </main>
+    <script>
+        // Retours haptiques (Vibration tactile douce sur mobile)
+        function triggerHaptic() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(15);
+            }
+        }
 
-</div>
+        // Effet 3D Tilt sur la Carte Bancaire
+        const card = document.getElementById('creditCard');
+        if (card) {
+            document.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                if (rect.top > 0 && rect.bottom < window.innerHeight) {
+                    card.style.transform = `perspective(1000px) rotateY(${x * 0.03}deg) rotateX(${-y * 0.03}deg)`;
+                }
+            });
+        }
 
-
-<!-- ==========================================
-     JAVASCRIPT
-========================================== -->
-
-<script src="js/app.js"></script>
-
-<script src="js/ui.js"></script>
-
-<script src="js/animations.js"></script>
-
-<script src="js/particles.js"></script>
-
+        // Simu Player audio toggle
+        let isPlaying = false;
+        function togglePlay() {
+            triggerHaptic();
+            isPlaying = !isPlaying;
+            const playIcon = document.getElementById('playIcon');
+            if (isPlaying) {
+                playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            } else {
+                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+            }
+        }
+    </script>
 </body>
-
 </html>
