@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Theme 1: Luxe Doré (Origine / Default) */
+            /* Theme 1: Luxe Doré (Origine / Sombre) */
             --bg-dark: #070709;
             --card-bg: rgba(18, 18, 26, 0.65);
             --card-bg-hover: rgba(28, 28, 40, 0.75);
@@ -35,28 +35,28 @@
             --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Theme 2: Amber Honey & Linen */
+        /* Theme 2: Amber Honey & Linen (Bascoulé en SOMBRE / Night Amber) */
         [data-theme="amber-honey"] {
-            --bg-dark: #FDFBF7;
-            --card-bg: rgba(255, 252, 245, 0.85);
-            --card-bg-hover: rgba(255, 248, 235, 0.95);
-            --border-color: rgba(217, 119, 6, 0.2);
+            --bg-dark: #120C08;
+            --card-bg: rgba(28, 20, 15, 0.75);
+            --card-bg-hover: rgba(42, 30, 22, 0.85);
+            --border-color: rgba(217, 119, 6, 0.25);
             --border-glow: rgba(245, 158, 11, 0.5);
-            --accent-gold: #D97706;
-            --accent-gold-light: #FBF5B7;
-            --accent-gold-gradient: linear-gradient(135deg, #D97706 0%, #F59E0B 50%, #FBBF24 100%);
-            --accent-purple: #F59E0B;
-            --accent-purple-glow: rgba(245, 158, 11, 0.2);
-            --text-main: #3B2F2F;
-            --text-muted: #786464;
-            --text-gold: #D97706;
-            --orb-1: #F59E0B;
-            --orb-2: #D97706;
-            --nav-bg: rgba(253, 251, 247, 0.9);
-            --btn-text: #FFFFFF;
+            --accent-gold: #F59E0B;
+            --accent-gold-light: #FDE68A;
+            --accent-gold-gradient: linear-gradient(135deg, #B45309 0%, #D97706 50%, #F59E0B 100%);
+            --accent-purple: #D97706;
+            --accent-purple-glow: rgba(245, 158, 11, 0.25);
+            --text-main: #FDFBF7;
+            --text-muted: #D1C5B8;
+            --text-gold: #F59E0B;
+            --orb-1: #D97706;
+            --orb-2: #B45309;
+            --nav-bg: rgba(18, 12, 8, 0.9);
+            --btn-text: #120C08;
         }
 
-        /* Theme 3: Terracotta & Sunbaked Earth */
+        /* Theme 3: Terracotta & Sunbaked Earth (Clair) */
         [data-theme="terracotta"] {
             --bg-dark: #FBF6F0;
             --card-bg: rgba(255, 250, 245, 0.8);
@@ -77,7 +77,7 @@
             --btn-text: #FFFFFF;
         }
 
-        /* Theme 4: Golden Bamboo & Olive */
+        /* Theme 4: Golden Bamboo & Olive (Clair) */
         [data-theme="bamboo-olive"] {
             --bg-dark: #F3F5F2;
             --card-bg: rgba(255, 255, 255, 0.85);
@@ -876,7 +876,7 @@
             border-radius: 40px;
             padding: 10px 20px;
             display: flex;
-            justify-content: space-around;
+            justify-style: space-around;
             align-items: center;
             z-index: 100;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -972,7 +972,7 @@
             </div>
         </header>
 
-        <!-- SÉLECTEUR D'AMBIANCE (4 THÈMES) -->
+        <!-- SÉLECTEUR D'AMBIANCE (2 SOMBRES, 2 CLAIRS) -->
         <div class="ambiance-selector-container">
             <span class="ambiance-label">Sélecteur d'Ambiance</span>
             <div class="ambiance-options">
